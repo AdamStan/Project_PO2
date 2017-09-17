@@ -1,4 +1,1 @@
-#About project#
-\n This is a project for PO2
-You can take it.
-There is only sorce, did not compile
+#About project# This is a project for PO2. You can take it. There is only source, but it was compiled and work
