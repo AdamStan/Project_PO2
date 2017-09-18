@@ -6,8 +6,7 @@ package test;
  import javafx.event.EventHandler;
  import javafx.scene.Scene;
  import javafx.scene.control.Button;
- import javafx.scene.layout.VBox;
- import javafx.scene.layout.StackPane;
+ import javafx.scene.layout.*;
  import javafx.scene.control.Label;
  import javafx.stage.Stage;
  import myownsql.Database;
@@ -29,13 +28,30 @@ public class MainTest extends Application {
             e.consume();
             closeProgram();
         });
+        
+        HBox topMenu = new HBox();
+        Button buttonA = new Button("File");
+        Button buttonB = new Button("Edit");
+        Button buttonC = new Button("View");
+        topMenu.getChildren().addAll(buttonA, buttonB, buttonC);
+        
+        VBox leftMenu = new VBox();
+        Button buttonD = new Button("D");
+        Button buttonE = new Button("E");
+        Button buttonF = new Button("F");
+        leftMenu.getChildren().addAll(buttonD, buttonE, buttonF);
+        
+        BorderPane border = new BorderPane();
+        border.setTop(topMenu);
+        border.setLeft(leftMenu);
+        
         Label label_1 = new Label("Welcome");
         button1 = new Button("Close Program");
         button1.setOnAction(e -> closeProgram());
-        VBox layout1 = new VBox(20);
-        layout1.getChildren().addAll(label_1, button1);
-        scene1 = new Scene(layout1, 200, 200);
         
+        StackPane layout = new StackPane();
+        layout.getChildren().addAll(label_1, button1);
+        scene1 = new Scene(border, 500, 400);
         window.setScene(scene1);
         window.show();
     }
