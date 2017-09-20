@@ -15,8 +15,8 @@ package test;
 
 public class MainTest extends Application {
     Stage window;
-    Scene scene1;
-    Button button1;
+    Scene scene;
+    Button button;
     
     public static void main(String[] args){
         launch(args);
@@ -27,31 +27,26 @@ public class MainTest extends Application {
         window = primaryStage;
         window.setTitle("BazaDanych");
         
-        GridPane grid = new GridPane();
-        grid.setPadding(new Insets(10,10,10,10));
-        grid.setVgap(8);
-        grid.setHgap(10);
-        //Name fields
-        Label nameLabel = new Label("Username: ");
-        GridPane.setConstraints(nameLabel, 0, 0); //column, row
-        TextField nameInput = new TextField("Jan");
-        GridPane.setConstraints(nameInput, 1, 0);
-        //Password fields
-        Label passwordLabel = new Label("Password: ");
-        GridPane.setConstraints(passwordLabel, 0, 1);
-        TextField passwordInput = new TextField();
-        passwordInput.setPromptText("password");
-        GridPane.setConstraints(passwordInput, 1, 1);
-        //Button
-        Button loginButton = new Button("Log in");
-        GridPane.setConstraints(loginButton, 2, 2);
+        TextField nameInput = new TextField();
+        button = new Button("Clik me");
+        button.setOnAction(e -> isInt(nameInput, nameInput.getText()) );
         
-        grid.getChildren().addAll(nameLabel, nameInput, passwordLabel,
-                passwordInput, loginButton);
-        
-        Scene scene = new Scene(grid, 500, 400);
+        VBox layout = new VBox(10);
+        layout.setPadding(new Insets(10,10,10,10));
+        layout.getChildren().addAll(nameInput, button);
+        scene = new Scene(layout, 500, 400);
         window.setScene(scene);
         window.show();
+    }
+    private boolean isInt(TextField txt, String message){
+        try{
+            int value = Integer.parseInt(txt.getText());
+            System.out.println("Liczba");
+            return true;
+        } catch(NumberFormatException e) {
+            System.out.println("Jakies znaczki");
+            return false;
+        }
     }
     private void closeProgram(){
         boolean result = ConfirmBox.display("Exit", "Do you want close program?");
@@ -60,6 +55,30 @@ public class MainTest extends Application {
             window.close();
         }
     }
+    /*BARDZO FAJNE LOGOWANIE
+    GridPane grid = new GridPane();
+    grid.setPadding(new Insets(10,10,10,10));
+    grid.setVgap(8);
+    grid.setHgap(10);
+    //Name fields
+    Label nameLabel = new Label("Username: ");
+    GridPane.setConstraints(nameLabel, 0, 0); //column, row
+    TextField nameInput = new TextField("Jan");
+    GridPane.setConstraints(nameInput, 1, 0);
+    //Password fields
+    Label passwordLabel = new Label("Password: ");
+    GridPane.setConstraints(passwordLabel, 0, 1);
+    TextField passwordInput = new TextField();
+    passwordInput.setPromptText("password");
+    GridPane.setConstraints(passwordInput, 1, 1);
+    //Button
+    Button loginButton = new Button("Log in");
+    GridPane.setConstraints(loginButton, 2, 2);
+
+    grid.getChildren().addAll(nameLabel, nameInput, passwordLabel,
+            passwordInput, loginButton);
+    */
+    
     /*
     fajne eventy + może się to przydać
     
