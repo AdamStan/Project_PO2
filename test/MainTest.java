@@ -1,6 +1,5 @@
 package test; 
  import javafx.application.Application;
- import commands.*;
  import java.util.Scanner;
  import javafx.event.ActionEvent;
  import javafx.event.EventHandler;
@@ -9,9 +8,9 @@ package test;
  import javafx.scene.control.Button;
  import javafx.scene.layout.*;
  import javafx.scene.control.Label;
+ import javafx.scene.control.CheckBox;
  import javafx.scene.control.TextField;
  import javafx.stage.Stage;
- import myownsql.Database;
 
 public class MainTest extends Application {
     Stage window;
@@ -27,16 +26,31 @@ public class MainTest extends Application {
         window = primaryStage;
         window.setTitle("BazaDanych");
         
-        TextField nameInput = new TextField();
-        button = new Button("Clik me");
-        button.setOnAction(e -> isInt(nameInput, nameInput.getText()) );
+        CheckBox box1 = new CheckBox("Bacon");
+        CheckBox box2 = new CheckBox("Tuna");
+        box2.setSelected(true);
+        
+        
+        button = new Button("Order now");
+        button.setOnAction(e -> handleOptions(box1, box2));
         
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(10,10,10,10));
-        layout.getChildren().addAll(nameInput, button);
+        layout.getChildren().addAll(box1, box2, button);
+        
         scene = new Scene(layout, 500, 400);
         window.setScene(scene);
         window.show();
+    }
+    private void handleOptions(CheckBox box1, CheckBox box2){
+         String message = "";
+         if(box1.isSelected()){
+             message += box1.getText() + "\n";
+         }
+         if(box2.isSelected()){
+             message += box2.getText() + "\n";
+         }
+         System.out.println(message);
     }
     private boolean isInt(TextField txt, String message){
         try{
@@ -55,6 +69,18 @@ public class MainTest extends Application {
             window.close();
         }
     }
+    
+    /*A, TAKIE TAM:
+    TextField nameInput = new TextField();
+    button = new Button("Clik me");
+    button.setOnAction(e -> isInt(nameInput, nameInput.getText()) );
+
+    VBox layout = new VBox(10);
+    layout.setPadding(new Insets(10,10,10,10));
+    layout.getChildren().addAll(nameInput, button);
+    scene = new Scene(layout, 500, 400);
+    */
+    
     /*BARDZO FAJNE LOGOWANIE
     GridPane grid = new GridPane();
     grid.setPadding(new Insets(10,10,10,10));
