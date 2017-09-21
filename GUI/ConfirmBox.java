@@ -31,6 +31,7 @@ public class ConfirmBox {
         });
         
         VBox layout = new VBox(10); //Why ten?
+        layout.setPadding(new Insets(10,10,10,10));
         layout.getChildren().addAll(label, yesButton, noButton);
         layout.setAlignment(Pos.BASELINE_CENTER);
         

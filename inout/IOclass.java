@@ -26,31 +26,34 @@ public class IOclass {
     }
   }
   //nasz Object musi implementować klasę Serializable!
-  public static void writeObjects(Database data)
-  throws Exception{
-    File file = new File(data.getFileName()+".txt");
-    FileOutputStream fo = new FileOutputStream(file);
-    ObjectOutputStream output = new ObjectOutputStream(fo);
-    output.writeObject(data);
-    output.close();
-    fo.close();
-  }
-  public static Database readObjects(String name)
-  throws Exception
-  {
-    File file = new File(name+".txt");
-    FileInputStream fi = new FileInputStream(file);
-    ObjectInputStream input = new ObjectInputStream(fi);
-    Database buff = null;
-    try {
-      while(true){
-        buff = (Database)input.readObject();
-      }
-    } catch (EOFException e){
-
+    public static void writeObjects(Database data){
+        try{
+            File file = new File(data.getFileName()+".txt");
+            FileOutputStream fo = new FileOutputStream(file);
+            ObjectOutputStream output = new ObjectOutputStream(fo);
+            output.writeObject(data);
+            output.close();
+            fo.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
-    input.close();
-    fi.close();
-    return buff;
-  }
+    public static Database readObjects(String name)
+    throws Exception
+    {
+        File file = new File(name+".txt");
+        FileInputStream fi = new FileInputStream(file);
+        ObjectInputStream input = new ObjectInputStream(fi);
+        Database buff = null;
+        try {
+            while(true){
+                buff = (Database)input.readObject();
+            }
+        } catch (EOFException e){
+
+        }
+        input.close();
+        fi.close();
+        return buff;
+    }
 }

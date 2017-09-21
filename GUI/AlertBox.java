@@ -14,10 +14,11 @@ public class AlertBox {
         
         Label label = new Label();
         label.setText(message);
-        Button closeButton = new Button("Clik to exit");
+        Button closeButton = new Button("OK");
         closeButton.setOnAction(e-> window.close());
         
         VBox layout = new VBox(10); //Why ten?
+        layout.setPadding(new Insets(10,10,10,10));
         layout.getChildren().addAll(label, closeButton);
         layout.setAlignment(Pos.BASELINE_CENTER);
         
