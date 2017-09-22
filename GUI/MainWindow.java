@@ -1,7 +1,7 @@
 package GUI; 
  import javafx.application.Application;
  import commands.*;
-import inout.IOclass;
+ import inout.IOclass;
  import java.util.Scanner;
  import javafx.event.ActionEvent;
  import javafx.event.EventHandler;
@@ -17,7 +17,7 @@ public class MainWindow extends Application {
     Stage window;
     Scene scene;
     Button buttonLogin, buttonSkip, buttonExit;
-    
+
     public static void main(String[] args){
         launch(args);
     }
@@ -47,7 +47,10 @@ public class MainWindow extends Application {
         buttonLogin = new Button("Log in");
         buttonLogin.setOnAction(e -> Logowanie(nameInput.getText()) );
         buttonSkip = new Button("Skip");
-        buttonSkip.setOnAction(e -> Logowanie("tymczasowa") );
+        buttonSkip.setOnAction(e -> {
+            if(data == null) Logowanie("tymczasowa");
+            else forData();
+        });
         buttonExit = new Button("Exit");
         buttonExit.setOnAction(e -> closeProgram() );
         bottomMenu.getChildren().addAll(buttonLogin, 
@@ -70,12 +73,31 @@ public class MainWindow extends Application {
     private void Logowanie(String nameDatabase){
         try{
             data = IOclass.readObjects(nameDatabase);
-            AlertBox.display("Wiadomość", "Wczytano bazę danych: " + nameDatabase);
+            AlertBox.display("Warming", "Load database: " + nameDatabase);
         } catch(Exception e) {
-            AlertBox.display("Błąd", "Nie znaleziono bazy o nazwie: " + nameDatabase );
+            AlertBox.display("Error", "We don't have database: " + nameDatabase );
             data = new Database(nameDatabase);
             IOclass.writeObjects(data);
-            AlertBox.display("Wiadomość", "Utworzona została baza danych " + nameDatabase );
+            AlertBox.display("Warming", "Database " + nameDatabase + " was created");
+        } finally {
+            forData();
         }
+    }
+    private void forData(){
+        GridPane gridNew = new GridPane();
+        gridNew.setPadding(new Insets(10,10,10,10)); //space from edges
+        gridNew.setVgap(10); //space between rows
+        gridNew.setHgap(10); //space between columns
+        Button buttonOpis = new Button("Description Database");
+        buttonOpis.setOnAction(e -> data.opis());
+        Button buttonBack = new Button("Back");
+        buttonBack.setOnAction(e -> this.start(window));
+        GridPane.setConstraints(buttonOpis, 0, 0);
+        GridPane.setConstraints(buttonBack, 0, 1);
+        GridPane.setConstraints(buttonExit, 0, 2);
+        gridNew.getChildren().addAll(buttonOpis, buttonExit, buttonBack);
+        Scene scene = new Scene(gridNew, 400, 400);
+        window.setScene(scene);
+        window.show();
     }
 }
