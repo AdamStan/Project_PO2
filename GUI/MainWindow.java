@@ -67,6 +67,7 @@ public class MainWindow extends Application {
         boolean result = ConfirmBox.display("Exit", "Do you want close program?");
         if(result){
             System.out.println("File is saved");
+            IOclass.writeObjects(data);
             window.close();
         }
     }
@@ -88,14 +89,41 @@ public class MainWindow extends Application {
         gridNew.setPadding(new Insets(10,10,10,10)); //space from edges
         gridNew.setVgap(10); //space between rows
         gridNew.setHgap(10); //space between columns
+        
         Button buttonOpis = new Button("Description Database");
         buttonOpis.setOnAction(e -> data.opis());
         Button buttonBack = new Button("Back");
-        buttonBack.setOnAction(e -> this.start(window));
+        buttonBack.setOnAction(e -> {
+            IOclass.writeObjects(data);
+            this.start(window);
+        });
+        TextField command = new TextField("Write command");
+        command.setOnAction(e -> {
+            Command c = new Command(command.getText());
+            try{
+                data = Choose.Processing(c, data);
+            } catch(Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+        });
+        Button buttonRun = new Button("Run");
+        buttonRun.setOnAction(e -> {
+            Command c = new Command(command.getText());
+            try{
+                data = Choose.Processing(c, data);
+            } catch(Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+        });
+        
         GridPane.setConstraints(buttonOpis, 0, 0);
-        GridPane.setConstraints(buttonBack, 0, 1);
-        GridPane.setConstraints(buttonExit, 0, 2);
-        gridNew.getChildren().addAll(buttonOpis, buttonExit, buttonBack);
+        GridPane.setConstraints(command, 0, 1);
+        GridPane.setConstraints(buttonRun, 1, 1);
+        GridPane.setConstraints(buttonBack, 0, 2);
+        GridPane.setConstraints(buttonExit, 0, 3);
+        
+        gridNew.getChildren().addAll(buttonOpis, buttonExit, buttonBack,
+                command, buttonRun);
         Scene scene = new Scene(gridNew, 400, 400);
         window.setScene(scene);
         window.show();

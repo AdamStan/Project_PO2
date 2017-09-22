@@ -19,6 +19,18 @@ public class Command {
             text.add(words[i]);
         }
     }
+    public Command(String nowe){
+        nowe = Command.replaceSigns(nowe);
+        String[] words = nowe.split(" ");
+        this.name = Order.valueOf(words[0].toUpperCase());
+        System.out.println(words[0]);
+        for(int i = 1; i < words.length ;i++){
+            if(words[i].equals("")){
+                continue;
+            }
+            text.add(words[i]);
+        }
+    }
     public Command(Command other){
         this.name = other.name;
         this.text = other.text;
