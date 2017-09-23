@@ -26,9 +26,9 @@ public class IOclass {
     }
   }
   //nasz Object musi implementować klasę Serializable!
-    public static void writeObjects(Database data){
+    public static void writeObjects(Serializable data){
         try{
-            File file = new File(data.getFileName()+".txt");
+            File file = new File(data + ".txt");
             FileOutputStream fo = new FileOutputStream(file);
             ObjectOutputStream output = new ObjectOutputStream(fo);
             output.writeObject(data);
