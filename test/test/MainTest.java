@@ -9,7 +9,7 @@ package test;
  import javafx.scene.layout.*;
  import javafx.scene.control.Label;
  import javafx.scene.control.CheckBox;
- import javafx.scene.control.ChoiceBox;
+ import javafx.scene.control.ComboBox;
  import javafx.scene.control.TextField;
  import javafx.stage.Stage;
 
@@ -17,6 +17,7 @@ public class MainTest extends Application {
     Stage window;
     Scene scene;
     Button button;
+    ComboBox<String> combobox;
     
     public static void main(String[] args){
         launch(args);
@@ -27,30 +28,31 @@ public class MainTest extends Application {
         window = primaryStage;
         window.setTitle("BazaDanych");
         
-        ChoiceBox <String> choiceBox = new ChoiceBox<>();
-        choiceBox.getItems().add("Apple");
-        choiceBox.getItems().add("Banana");
-        choiceBox.getItems().addAll("Cucumber", "Raw");
-        
-        choiceBox.setValue("Banana");
-        
+        combobox = new ComboBox<>();
+        combobox.getItems().addAll(
+                "Good Will Hunting",
+                "It",
+                "Something new"
+        );
+        combobox.setPromptText("What is your favorite movie?");
+        combobox.setEditable(true);
+        combobox.setOnAction(e -> System.out.println("User selected: " + combobox.getValue()) );
         button = new Button("Clik me");
+        button.setOnAction( e -> printMovie() );
         
-        choiceBox.getSelectionModel().selectedItemProperty().addListener( (v, oldValue, newValue) -> 
-            System.out.println(newValue) );
-        
-        /*button.setOnAction(e -> {
-            System.out.println(choiceBox.getValue());
-        });*/
         
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(10,10,10,10));
-        layout.getChildren().addAll(choiceBox, button);
+        layout.getChildren().addAll(combobox, button);
         
         scene = new Scene(layout, 500, 400);
         window.setScene(scene);
         window.show();
     }
+    private void printMovie(){
+        System.out.println(combobox.getValue());
+    }
+    
     private void handleOptions(CheckBox box1, CheckBox box2){
          String message = "";
          if(box1.isSelected()){
@@ -78,6 +80,28 @@ public class MainTest extends Application {
             window.close();
         }
     }
+    
+    /*
+    ChoiceBox <String> choiceBox = new ChoiceBox<>();
+    choiceBox.getItems().add("Apple");
+    choiceBox.getItems().add("Banana");
+    choiceBox.getItems().addAll("Cucumber", "Raw");
+
+    choiceBox.setValue("Banana");
+
+    button = new Button("Clik me");
+
+    choiceBox.getSelectionModel().selectedItemProperty().addListener( (v, oldValue, newValue) -> 
+        System.out.println(newValue) );
+
+    button.setOnAction(e -> {
+        System.out.println(choiceBox.getValue());
+    });
+
+    VBox layout = new VBox(10);
+    layout.setPadding(new Insets(10,10,10,10));
+    layout.getChildren().addAll(choiceBox, button);
+    */
     
     /*A, TAKIE TAM:
     TextField nameInput = new TextField();
