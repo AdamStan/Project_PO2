@@ -1,4 +1,6 @@
 package commands;
+
+ import GUI.SelectBox;
  import java.util.ArrayList;
  import java.util.Scanner;
  import myownsql.Database;
@@ -27,7 +29,6 @@ public class CommandSelect extends Command{
         return i+1;
     }
     @Override public Database make(Database Data) throws Exception{
-            System.out.println(this.whichColumns);
             if(Data.getPositionTableByName(whichTable).equals(-1))
                 throw new TableDoesNotExistsException("Tej tabeli nie ma w bazie "
                     + "z której korzystasz...");
@@ -59,6 +60,7 @@ public class CommandSelect extends Command{
                 }
             }
             System.out.println(select);
+            SelectBox.display(select);
             return Data;
     }
 }

@@ -17,19 +17,15 @@ public class Choose {
                 cn = new CommandSelect(c);
                 break;
             case UPDATE:
-                System.out.println("Polecenie UPDATE");
                 cn = new CommandUpdate(c);
                 break;
             case DELETE:
-                System.out.println("Polecenie DELETE");
                 cn = new CommandDelete(c);
                 break;
             case USE:
-                System.out.println("Polecenie USE");
                 cn = new CommandUse(c);
                 break;
             case EXIT:
-                System.out.println("Polecenie EXIT");
                 IOclass.writeObjects(Data);
                 System.exit(0);
                 break;

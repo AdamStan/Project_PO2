@@ -16,6 +16,7 @@ public class MainWindow extends Application {
     Database data;
     Stage window;
     Scene scene;
+    GridPane grid;
     Button buttonLogin, buttonSkip, buttonExit;
 
     public static void main(String[] args){
@@ -32,7 +33,7 @@ public class MainWindow extends Application {
             closeProgram();
         });
         //Using GridPane:
-        GridPane grid = new GridPane();
+        grid = new GridPane();
         grid.setPadding(new Insets(10,10,10,10)); //space from edges
         grid.setVgap(10); //space between rows
         grid.setHgap(10); //space between columns

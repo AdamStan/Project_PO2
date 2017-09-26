@@ -55,6 +55,7 @@ public class Command {
         word = word.replace('(',' ');
         word = word.replace(')',' ');
         word = word.replace('\'',' ');
+        word = word.replace('\"',' ');
         return word;
     }
     public Database make(Database data)
